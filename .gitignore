@@ -1,6 +1,8 @@
 #custom
 .node
 node_modules/
+frontend/static/frontend/
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
