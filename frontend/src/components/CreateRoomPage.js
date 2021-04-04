@@ -17,10 +17,10 @@ export default class CreateRoomPage extends Component {
         super(props);
         this.state = {
             guestCanPause: true,
-            votesToskip: this.defaultVotes,
+            votesToSkip: this.defaultVotes,
         };
 
-        console.log("state1: " + this.state.votesToskip)
+        console.log("state1: " + this.state.votesToSkip)
         console.log("state2: " + this.state.guestCanPause)
 
         // Allows "this" keyword in the handleRoomButtonPressed function
@@ -33,7 +33,7 @@ export default class CreateRoomPage extends Component {
         this.setState({
             votesToSkip: e.target.value,
         });
-        console.log("new votesToSkip: " + e.target.value)
+        console.log("new votesToSkip: " + e.target.value);
     }
     handleGuestCanPauseChange(e) {
         this.setState({
@@ -42,9 +42,6 @@ export default class CreateRoomPage extends Component {
         console.log("new pause: " + e.target.value)
     }
     handleRoomButtonPressed() {
-        console.log("state1: " + this.state.votesToskip)
-        console.log("state2: " + this.state.guestCanPause)
-
         const requestOptions = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -53,7 +50,6 @@ export default class CreateRoomPage extends Component {
                 guest_can_pause: this.state.guestCanPause,
             }),
         };
-        console.log("requestOptions.body: " + requestOptions.body)
         fetch("/api/create-room/", requestOptions)
             .then((response) => response.json())
             .then((data) => this.props.history.push("/room/" + data.code));

@@ -11,6 +11,7 @@ export default class HomePage extends Component{
         this.state = {
             roomCode: null,
         };
+        this.clearRoomCode = this.clearRoomCode.bind(this);
     }
 
     async componentDidMount(){
@@ -24,6 +25,12 @@ export default class HomePage extends Component{
             .catch((error) => {
                 console.log(error);
             });
+    }
+
+    clearRoomCode(){
+        this.setState({
+            roomCode: null,
+        });
     }
 
     renderHomePage() {
@@ -50,16 +57,29 @@ export default class HomePage extends Component{
 
     render(){
         return (
-        <Router>
-            <switch>
-                <Route exact path="/" render={() => {
-                    return this.state.roomCode ? (<Redirect to={`/room/${this.state.roomCode}`}/>) : this.renderHomePage()
-                }}/> 
-                <Route path="/join" component={JoinRoomPage} />
-                <Route path="/create" component={CreateRoomPage} />
-                <Route path="/room/:roomCode" component={Room}/>
-            </switch>
-        </Router>
+            <Router>
+                <switch>
+                    <Route
+                        exact
+                        path="/"
+                        render={() => {
+                            return this.state.roomCode ? (
+                                <Redirect to={`/room/${this.state.roomCode}`} />
+                            ) : (
+                                this.renderHomePage()
+                            );
+                        }}
+                    />
+                    <Route path="/join" component={JoinRoomPage} />
+                    <Route path="/create" component={CreateRoomPage} />
+                    <Route
+                        path="/room/:roomCode"
+                        render={(props) => {
+                            return <Room {...props} leaveRoomCallback={this.clearRoomCode} />;
+                        }}
+                    />
+                </switch>
+            </Router>
         );
     }
 }

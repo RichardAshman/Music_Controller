@@ -13,6 +13,7 @@ def generate_unique_code():
             break
     return code
 
+
 class Room(models.Model):
     code = models.CharField(max_length=8, default=generate_unique_code, unique=True)
     host = models.CharField(max_length=50, unique=True)
