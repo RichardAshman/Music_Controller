@@ -63,7 +63,7 @@ export default class CreateRoomPage extends Component {
         return (
             <Grid container spacing={1}>
                 <Grid item xs={12} align="center">
-                    <Typography component="h4" varient="h4">
+                    <Typography component="h4" variant="h4">
                         Create A Room
                     </Typography>
                 </Grid>
@@ -94,14 +94,14 @@ export default class CreateRoomPage extends Component {
                         </RadioGroup>
                     </FormControl>
                 </Grid>
-                <Grid itm xs={12} align="center">
+                <Grid item xs={12} align="center">
                     <FormControl>
                         <TextField
                             required={true}
                             type="number"
                             onChange={this.handleVotesChange}
                             defaultValue={this.defaultVotes}
-                            imputProps={{
+                            inputProps={{
                                 min: 1,
                                 style: { textAlign: "center" },
                             }}
@@ -113,7 +113,7 @@ export default class CreateRoomPage extends Component {
                         </FormHelperText>
                     </FormControl>
                 </Grid>
-                <Grid itm xs={12} align="center">
+                <Grid item xs={12} align="center">
                     <Button
                         color="primary"
                         variant="contained"
@@ -122,7 +122,7 @@ export default class CreateRoomPage extends Component {
                         Create A Room
                     </Button>
                 </Grid>
-                <Grid itm xs={12} align="center">
+                <Grid item xs={12} align="center">
                     <Button
                         color="secondary"
                         variant="contained"
