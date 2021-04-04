@@ -12,7 +12,7 @@ export default class Room extends Component {
     }
 
     getRoomDetails() {
-        fetch("/api/get-room" + "?code=" + this.roomCode)
+        fetch("/api/get-room/" + "?code=" + this.roomCode)
             .then((response) => response.json())
             .then((data) => {
                 this.setState({
@@ -20,6 +20,9 @@ export default class Room extends Component {
                     guestCanPause: data.guest_can_pause,
                     isHost: data.is_host,
                 });
+            })
+            .catch((error) => {
+                console.log(error);
             });
     }
 

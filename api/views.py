@@ -1,11 +1,11 @@
 from django.shortcuts import render
-from rest_framework import generics, status
+from django.http import JsonResponse
+
 from .serializers import RoomSerializer, CreateRoomSerializer
 from .models import Room
 from rest_framework.views import APIView
 from rest_framework.response import Response
-
-# Create your views here.
+from rest_framework import generics, status
 
 
 class RoomView(generics.ListCreateAPIView):
@@ -72,10 +72,22 @@ class CreateRoomView(APIView):
                 self.request.session["room_code"] = room.code
                 return Response(RoomSerializer(room).data, status=status.HTTP_200_OK)
             else:
-                room = Room(host=host, guest_can_pause=guest_can_pause, votes_to_skip=votes_to_skip)
+                room = Room(host=host, guest_can_pause=guest_can_pause,
+                            votes_to_skip=votes_to_skip)
                 room.save()
                 print("Room created")
                 self.request.session["room_code"] = room.code
                 return Response(RoomSerializer(room).data, status=status.HTTP_201_CREATED)
         print("Room creation failed")
         return Response({'Bad Request': 'Invalid data...'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class UserInRoom(APIView):
+    def get(self, request, format=None):
+        if not self.request.session.exists(self.request.session.session_key):
+            self.request.session.create()
+
+        data = {
+            "code": self.request.session.get("room_code")
+        }
+        return JsonResponse(data, status=status.HTTP_200_OK)
